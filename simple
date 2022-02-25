@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <fstream>
+#include <iomanip>
+#include <chrono>
+
+using namespace std;
+
+ifstream in("in.txt");
+
+int main()
+{
+	string s;
+	string t;
+	getline(in, s);
+	getline(in, t);
+	int k = -1;
+	int i, j;
+
+	auto start = chrono::high_resolution_clock::now();
+
+	for (i = 0; i < s.length() - t.length() + 1; i++) {
+		j = 0;
+		while ((j < t.length()) && (t[j] == s[i + j])) { j++; }
+		if (j == t.length()) {
+			k = i;
+			break;
+		}
+	}
+
+	auto end = chrono::high_resolution_clock::now();
+	chrono::duration<float> result = end - start;
+
+
+	cout << k << endl;
+	cout << fixed << setprecision(10) << result.count() << endl;
+
+}
