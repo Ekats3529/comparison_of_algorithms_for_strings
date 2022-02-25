@@ -1,0 +1,31 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <fstream>
+#include <iomanip>
+#include <chrono>
+
+using namespace std;
+
+ifstream in("in.txt");
+
+int main()
+{
+	string s;
+	string t;
+	getline(in, s);
+	getline(in, t);
+
+	int k;
+
+	auto start = chrono::high_resolution_clock::now();
+
+	k = s.find(t);
+
+	auto end = chrono::high_resolution_clock::now();
+	chrono::duration<float> result = end - start;
+
+	cout << k << endl;
+	cout << fixed << setprecision(10) << result.count() << endl;
+
+}
