@@ -10,7 +10,7 @@ using namespace std;
 
 ifstream in("in.txt");
 
-vector<int> prefix(string s) {
+vector<int> prefix(string s) { // функция вычисляющая префикс функцию строки s
 	int k;
 	int len = s.length();
 
@@ -35,7 +35,7 @@ int main()
 	int k, index;
 	vector<int> f;
 	
-	auto start = chrono::high_resolution_clock::now();
+	auto start = chrono::high_resolution_clock::now(); // запуск счетчика времени
 
 	k = 0;
 	index = -1;
