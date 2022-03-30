@@ -1,1 +1,59 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <fstream>
+#include <iomanip>
+#include <chrono>
 
+using namespace std;
+
+ifstream in("in.txt");
+
+vector<int> prefix(string s) {
+	int k;
+	int len = s.length();
+
+	vector<int> p(len);
+
+	for (int i = 1; i < len; i++) {
+		k = p[i - 1];
+		while (k > 0 && s[k] != s[i]) { k = p[k - 1]; }
+		if (s[k] == s[i]) {k++;}
+		p[i] = k;
+	}
+	return p;
+}
+
+int main()
+{
+	string s;
+	string t;
+	getline(in, s);
+	getline(in, t);
+
+	int k, index;
+	vector<int> f;
+	
+	auto start = chrono::high_resolution_clock::now();
+
+	k = 0;
+	index = -1;
+	f = prefix(t);
+
+	for (int i = 0; i < s.length(); i++) {
+		while (k > 0 && t[k] != s[i]) { k = f[k - 1]; }
+		if (t[k] == s[i]) { k++; }
+		if (k == t.length()) {
+			index = i - t.length() + 1;
+			break;
+		}
+	}
+
+	auto end = chrono::high_resolution_clock::now();
+	chrono::duration<float> result = end - start;
+
+	cout << index << endl;
+	cout << fixed << setprecision(10) << result.count() << endl;
+
+}
